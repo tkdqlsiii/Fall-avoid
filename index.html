@@ -15,33 +15,19 @@
 <script>
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var charactor.
-var ballRadius = 30;
+var charactorX = width/2;
+var charactorY = height;
+var charactorRadius = 30;
+
 var x = canvas.width/2;
 var y = canvas.height-30;
-var dx = 2;
-var dy = -2;
-var paddleHeight = 10;
-var paddleWidth = 150;
-var paddleX = (canvas.width-paddleWidth)/2;
+
+var dy = -5;
+
+var charactorX = (canvas.width-paddleWidth)/2;
+
 var rightPressed = false;
 var leftPressed = false;
-var brickRowCount = 5;
-var brickColumnCount = 3;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
-var score = 0;
-
-var bricks = [];
-for(var c=0; c<brickColumnCount; c++) {
-  bricks[c] = [];
-  for(var r=0; r<brickRowCount; r++) {
-    bricks[c][r] = { x: 0, y: 0, status: 1 };
-  }
-}
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -63,86 +49,58 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
-function collisionDetection() {
-  for(var c=0; c<brickColumnCount; c++) {
-    for(var r=0; r<brickRowCount; r++) {
-      var b = bricks[c][r];
-      if(b.status == 1) {
-        if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
-          dy = -dy;
-          b.status = 0;
-          score++;
-          if(score == brickRowCount*brickColumnCount) {
-            alert("YOU WIN, CONGRATS!");
-            document.location.reload();
-            clearInterval(interval); // Needed for Chrome to end game
-          }
-        }
-      }
-    }
-  }
-}
 
-function drawBall() {
+function drawcharactor() {
   ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+  ctx.arc(x, y, charactorRadius, 0, Math.PI*2);
   ctx.fillStyle = "#5F04B4";
   ctx.fill();
   ctx.closePath();
 }
 
-function drawPaddle() {
-  if(score<500){
-    ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#5F04B4";
-    ctx.fill();
-    ctx.closePath();
 
-
-function drawScore() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#5F04B4";
-  ctx.fillText("kcal : "+score, 920, 20);
-}
+// function drawScore() {
+//   ctx.font = "16px Arial";
+//   ctx.fillStyle = "#5F04B4";
+//   ctx.fillText("kcal : "+score, 920, 20);
+// }
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBall();
-  drawPaddle();
-  drawScore();
+  drawcharactor();
   collisionDetection();
+  charactorY -= 5;
+  if(y+dy >canvas.height)
+  {
+    charactorY -= dx;
+  }
+  // if(x + dx > canvas.width-charactorRadius || x + dx < charactorRadius) {
+  //   dx = -dx;
+  // }
+  // if(y + dy < charactorRadius) {
+  //   dy = -dy;
+  // }
+  // else if(y + dy > canvas.height-charactorRadius) {
+  //   if(x > paddleX && x < paddleX + paddleWidth) {
+  //     dy = -dy;
 
-  if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
-    dx = -dx;
-  }
-  if(y + dy < ballRadius) {
-    dy = -dy;
-  }
-  else if(y + dy > canvas.height-ballRadius) {
-    if(x > paddleX && x < paddleX + paddleWidth) {
-      dy = -dy;
-      score++;
+  //   }
+  //   else {
+  //     alert("스쿼시를 하면서 소비한 칼로리는 "+score+"kcal 입니다.");
+  //     document.location.reload();
+  //     clearInterval(interval); // Needed for Chrome to end game
+  //   }
+  // }
 
-    }
-    else {
-      alert("스쿼시를 하면서 소비한 칼로리는 "+score+"kcal 입니다.");
-      document.location.reload();
-      clearInterval(interval); // Needed for Chrome to end game
-    }
+  if(rightPressed && charactorX < canvas.width-charactorRadius) {
+    charactorX += 5;
+  }
+  else if(leftPressed && charactorX+canvas.charactorRadius > 0) {
+    charactorX -= 5;
   }
 
-  if(rightPressed && paddleX < canvas.width-paddleWidth) {
-    paddleX += 10;
-    score++;
-  }
-  else if(leftPressed && paddleX > 0) {
-    paddleX -= 10;
-    score++;
-  }
-
-  x += dx*4;
-  y += dy*4;
+  x += dx;
+  y += dy;
 }
 
 var interval = setInterval(draw, 10);
