@@ -2,108 +2,78 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>FALL & AVOID</title>
+    <title>Gamedev Canvas Workshop</title>
     <style>
     	* { padding: 0; margin: 0; }
-    	canvas { background:#C8FE2E; display: block; margin: 0 auto; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
     </style>
 </head>
 <body>
 
-<canvas id="myCanvas" width="500" height="620"></canvas>
+<canvas id="myCanvas" width="480" height="720"></canvas>
 
 <script>
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var charactorX = width/2;
-var charactorY = height;
-var charactorRadius = 30;
 
-var x = canvas.width/2;
-var y = canvas.height-30;
+var x = canvas.width/2; //공의 x위치
+var y = canvas.height-300; //공의 y위치
+var dx = 0;  //프레임마다 움직이는 x축 거리
+var dy = -2;  //프레임마다 움직이는 y축 거리
+var ballRadius = 10;  //공 둘레 함수
+var rightPressed = false;//오른쪽 컨트롤 버튼 초기화
+var leftPressed = false;//왼쪽 컨트롤 버튼 초기화
 
-var dy = -5;
 
-var charactorX = (canvas.width-paddleWidth)/2;
+document.addEventListener("keydown", keyDownHandler, false);//키를 누르면 함수시작
+document.addEventListener("keyup", keyUpHandler, false);//키를 때면 함수시작
 
-var rightPressed = false;
-var leftPressed = false;
-
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-
-function keyDownHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
+function keyDownHandler(e) { //키를 누르면 e변수에 저장
+    if(e.keyCode == 39) {//오른쪽 방향키
         rightPressed = true;
     }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
+    else if(e.keyCode == 37) {//왼쪽 방향키
         leftPressed = true;
     }
 }
 
-function keyUpHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
+function keyUpHandler(e) { //키를 때면 e변수에 저장
+    if(e.keyCode == 39) {//오른쪽 방향키
         rightPressed = false;
     }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
+    else if(e.keyCode == 37) {//왼쪽 방향키
         leftPressed = false;
     }
 }
 
-function drawcharactor() {
-  ctx.beginPath();
-  ctx.arc(x, y, charactorRadius, 0, Math.PI*2);
-  ctx.fillStyle = "#5F04B4";
-  ctx.fill();
-  ctx.closePath();
+function drawBall() { // 프레임마다 변수 갱신 함수
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);//공의 현재 위치 
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function draw() {//프레임 진행 함수
+    ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
+    drawBall();
+    x += dx;  //프레임당 진행 변수
+    y += dy;    //프레임당 진행 변수
+    //마지막 스테이지에서는 +로 바궈서 진행 바꿔야 함
+    if(y + dy > canvas.height-ballRadius ||/*하단 모서리*/ y + dy/*상단 모서리*/ < ballRadius) {
+    dy = -dy;//프레임당 진행 방향 바꿈
+    if(rightPressed) {
+    x += 2;
+    }
+    else if(leftPressed) {
+    x -= 2;
+    }
+
+}
 }
 
 
-// function drawScore() {
-//   ctx.font = "16px Arial";
-//   ctx.fillStyle = "#5F04B4";
-//   ctx.fillText("kcal : "+score, 920, 20);
-// }
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawcharactor();
-  collisionDetection();
-  charactorY -= 5;
-  if(y+dy >canvas.height)
-  {
-    charactorY -= dx;
-  }
-  // if(x + dx > canvas.width-charactorRadius || x + dx < charactorRadius) {
-  //   dx = -dx;
-  // }
-  // if(y + dy < charactorRadius) {
-  //   dy = -dy;
-  // }
-  // else if(y + dy > canvas.height-charactorRadius) {
-  //   if(x > paddleX && x < paddleX + paddleWidth) {
-  //     dy = -dy;
-
-  //   }
-  //   else {
-  //     alert("스쿼시를 하면서 소비한 칼로리는 "+score+"kcal 입니다.");
-  //     document.location.reload();
-  //     clearInterval(interval); // Needed for Chrome to end game
-  //   }
-  // }
-
-  if(rightPressed && charactorX < canvas.width-charactorRadius) {
-    charactorX += 5;
-  }
-  else if(leftPressed && charactorX+canvas.charactorRadius > 0) {
-    charactorX -= 5;
-  }
-
-  x += dx;
-  y += dy;
-}
-
-var interval = setInterval(draw, 10);
+setInterval(draw, 10);
 </script>
 
 </body>
