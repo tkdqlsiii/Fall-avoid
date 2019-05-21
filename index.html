@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<canvas id="myCanvas" width="480" height="720"></canvas>
+<canvas id="myCanvas" width="480" height="720"></canvas> //캔버스 크기 480*720
 
 <script>
 var canvas = document.getElementById("myCanvas");
@@ -49,16 +49,16 @@ function keyUpHandler(e) { //키를 때면 e변수에 저장
 
 function drawBall() { // 프레임마다 변수 갱신 함수
     ctx.beginPath();
-    if(rightPressed) {
-    x += 3;
+    if(rightPressed) {                          // 오른쪽키가 true(누른상태)이면
+    x += 3;                                     // x값을 3추가
     }
-    else if(leftPressed) {
-    x -= 3;
+    else if(leftPressed) {                      // 왼쪽키가 true(누른상태)이면
+    x -= 3;                                     // x값을 3감소
     }
-    ctx.arc(x, y, ballRadius, 0, Math.PI*2);//공의 현재 위치 
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);    // x , y, 지름등 값을 참조하여 원을 그린다.
+    ctx.fillStyle = "#0095DD";                  // 색을 "#0095DD"로 채울거임
+    ctx.fill();                                 // 채움
+    ctx.closePath();                            // 공그리는 path는 여기까지
 }
 
 function draw() {//프레임 진행 함수
@@ -69,9 +69,15 @@ function draw() {//프레임 진행 함수
     //마지막 스테이지에서는 +로 바궈서 진행 바꿔야 함
     if(y + dy > canvas.height-ballRadius ||/*하단 모서리*/ y + dy/*상단 모서리*/ < ballRadius) {
     dy = -dy;//프레임당 진행 방향 바꿈
-    
+    }
+    if(x+ballRadius >canvas.width || x-ballRadius < 0){ // 양쪽 벽에닿으면
+        document.location.reload();                     // 정보를 다시불러오고
+        x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+        alert("GAME OVER");                             // 게임오버 메세지 띄움
+        
+    }
 }
-}
+
 
 
 setInterval(draw, 10);
