@@ -4,25 +4,42 @@
     <meta charset="utf-8" />
     <title>Gamedev Canvas Workshop</title>
     <style>
-    	* { padding: 0; margin: 0; }
+    	* { padding: 0; margin: 0; background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);}
     	canvas { background: #eee; display: block; margin: 0 auto; }
+        
     </style>
 </head>
 <body>
 
-<canvas id="myCanvas" width="480" height="720"></canvas>
+<canvas id="myCanvas" width="480" height="720"></canvas> 
 
 <script>
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var x = canvas.width/2; //공의 x위치
-var y = canvas.height-300; //공의 y위치
-var dx = 0;  //프레임마다 움직이는 x축 거리
-var dy = -2;  //프레임마다 움직이는 y축 거리
-var ballRadius = 10;  //공 둘레 함수
-var rightPressed = false;//오른쪽 컨트롤 버튼 초기화
-var leftPressed = false;//왼쪽 컨트롤 버튼 초기화
+var x = canvas.width/2;         //공의 x위치
+var y = canvas.height-300;      //공의 y위치
+var ballRadius = 10;            //공 둘레 함수
+
+var dx = 0;                     //프레임마다 움직이는 x축 거리
+var dy = -4;                    //프레임마다 움직이는 y축 거리
+
+var block01Radius = 220;        // 첫번째 장애물 크기 
+var block01X = canvas.width-40;
+var block01Y = canvas.height-200;
+
+var block02Radius = 220;        // 두번째 장애물 크기
+var block02X = 40;
+var block02Y = 200;
+
+var block03Radius = 150;        // 두번째 장애물 크기
+var block03X = canvas.width;
+var block03Y = 0;
+
+
+var rightPressed = false;       //오른쪽 컨트롤 버튼 초기화
+var leftPressed = false;        //왼쪽 컨트롤 버튼 초기화
+var spacebarPressed = false;    //스페이스 바 버튼 초기화
 
 
 document.addEventListener("keydown", keyDownHandler, false);//키를 누르면 함수시작
@@ -35,6 +52,9 @@ function keyDownHandler(e) { //키를 누르면 e변수에 저장
     else if(e.keyCode == 37) {//왼쪽 방향키
         leftPressed = true;
     }
+    if(e.keyCode ==32) {// space bar
+        spacebarPressed = true;
+    }
 }
 
 function keyUpHandler(e) { //키를 때면 e변수에 저장
@@ -44,33 +64,88 @@ function keyUpHandler(e) { //키를 때면 e변수에 저장
     else if(e.keyCode == 37) {//왼쪽 방향키
         leftPressed = false;
     }
+    if(e.keyCode ==32) {// space bar
+        spacebarPressed = false;
+    }
 }
 
 function drawBall() { // 프레임마다 변수 갱신 함수
     ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI*2);//공의 현재 위치 
+    if(rightPressed) {                          // 오른쪽키가 true(누른상태)이면
+    x += 3;                                     // x값을 3추가
+    }
+    else if(leftPressed) {                      // 왼쪽키가 true(누른상태)이면
+    x -= 3;                                     // x값을 3감소
+    }
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);    // x , y, 지름등 값을 참조하여 원을 그린다.
+    ctx.fillStyle = "#0095DD";                  // 색을 "#0095DD"로 채울거임
+    ctx.fill();                                 // 채움
+    ctx.closePath();                            // 공그리는 path는 여기까지
+}
+
+function stage1by1(){                           // 스테이지 1-1
+    ctx.arc(block01X, block01Y, block01Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+
+    ctx.arc(block02X, block02Y, block02Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block03X, block03Y, block03Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+function distanceofP() {//충돌 함수
+    ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
+    drawBall();
+    stage1by1();
+
+    var dxx = Math.pow(dx,2);
+    var dyy = Math.pow(dy,2);
+    var distance0 = Math.sqrt( dxx + dyy);
+
+    var distance1X = Math.pow( Math.abs(block01X - x),2); //x.square
+    var distance1Y = Math.pow( Math.abs(block01Y - y),2); //y.square
+
+    var distance2X = Math.pow( Math.abs(block02X - x),2); //x2.square
+    var distance2Y = Math.pow( Math.abs(block02Y - y),2); //y2.square
+
+    var distance3X = Math.pow( Math.abs(block03X - x),2); //x2.square
+    var distance3Y = Math.pow( Math.abs(block03Y - y),2); //y2.square
+
+    var distance1 =Math.sqrt(distance1X + distance1Y); //볼과 장애물 1원과의 직선거리
+    var distance2 =Math.sqrt(distance2X + distance2Y); //볼과 장애물 2원과의 직선거리
+    var distance3 =Math.sqrt(distance3X + distance3Y); //볼과 장애물 3원과의 직선거리
+
+    if(distanc1 + distance0 < ballRadius + block01Radius) { dx=0,dy=0,  alert("GAME OVER"); }
+    if(distanc2  + distance0 < ballRadius + block02Radius) { dx=0,dy=0, alert("GAME OVER");}
+    if(distanc3  + distance0 < ballRadius + block03Radius) { dx=0,dy=0, alert("GAME OVER");}
+
+    x += dx;
+    y += dy;
 }
 
 function draw() {//프레임 진행 함수
     ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
     drawBall();
+    stage1by1();
     x += dx;  //프레임당 진행 변수
     y += dy;    //프레임당 진행 변수
     //마지막 스테이지에서는 +로 바궈서 진행 바꿔야 함
     if(y + dy > canvas.height-ballRadius ||/*하단 모서리*/ y + dy/*상단 모서리*/ < ballRadius) {
-    dy = -dy;//프레임당 진행 방향 바꿈
-    if(rightPressed) {
-    x += 2;
+    dy = -dy;       //프레임당 진행 바꿈
     }
-    else if(leftPressed) {
-    x -= 2;
+    if(x+ballRadius >canvas.width || x-ballRadius < 0){ // 양쪽 벽에닿으면
+        document.location.reload();                     // 정보를 다시불러오고
+        x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+        alert("GAME OVER");                             // 게임오버 메세지 띄움
     }
+}
 
-}
-}
 
 
 setInterval(draw, 10);
