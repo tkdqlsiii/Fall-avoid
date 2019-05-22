@@ -100,18 +100,28 @@ function drawBall() { // 프레임마다 변수 갱신 함수
 function stage1by1(){                           // 스테이지 1-1
     ctx.arc(block01X, block01Y, block01Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    //ctx.fill();
     ctx.closePath();
 
     ctx.arc(block02X, block02Y, block02Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    //ctx.fill();
     ctx.closePath();
 
     ctx.arc(block03X, block03Y, block03Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+}
+
+function drawline(){
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.moveTo(20,20);
+    ctx.lineTo(200,20);
+    ctx.strokeStyle="red";
+    ctx.stroke();
 }
 
 function gameover(){
@@ -121,9 +131,13 @@ function gameover(){
 }
 
 function draw() {//프레임 진행 함수
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
-    drawBall();
+
     stage1by1();
+    drawBall();
+    drawline();
+
 
     x += dx;  //프레임당 진행 변수
     y += dy;    //프레임당 진행 변수
