@@ -114,15 +114,21 @@ function stage1by1(){                           // 스테이지 1-1
     ctx.closePath();
 }
 
-function drawline(){
-    ctx.beginPath();
-    ctx.lineWidth = 5;
-    ctx.lineCap = "round";
-    ctx.moveTo(20,20);
-    ctx.lineTo(200,20);
-    ctx.strokeStyle="red";
-    ctx.stroke();
+function drawline01(){
+    ctx.moveTo(block01X,block01Y);
+    ctx.lineTo(x,y);
 }
+
+function drawline02(){
+    ctx.moveTo(block02X,block02Y);
+    ctx.lineTo(x,y);
+}
+
+function drawline03(){
+    ctx.moveTo(block03X,block03Y);
+    ctx.lineTo(x,y);
+}
+
 
 function gameover(){
     document.location.reload();                     // 정보를 다시불러오고
@@ -136,7 +142,9 @@ function draw() {//프레임 진행 함수
 
     stage1by1();
     drawBall();
-    drawline();
+    drawline01();
+    drawline02();
+    drawline03();
 
 
     x += dx;  //프레임당 진행 변수
