@@ -220,12 +220,12 @@ function drawBall() { // 프레임마다 변수 갱신 함수
 function stage1by1(){                           // 스테이지 1-1
     ctx.arc(block01X, block01Y, block01Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    //ctx.fill();
     ctx.closePath();
 
     ctx.arc(block02X, block02Y, block02Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    //ctx.fill();
     ctx.closePath();
 
     ctx.arc(block03X, block03Y, block03Radius, 0, Math.PI*2);    //
@@ -234,6 +234,22 @@ function stage1by1(){                           // 스테이지 1-1
     ctx.closePath();
 }
 
+function drawline01(){
+    ctx.moveTo(block01X,block01Y);
+    ctx.lineTo(x,y);
+}
+
+function drawline02(){
+    ctx.moveTo(block02X,block02Y);
+    ctx.lineTo(x,y);
+}
+
+function drawline03(){
+    ctx.moveTo(block03X,block03Y);
+    ctx.lineTo(x,y);
+}
+
+
 function gameover(){
     document.location.reload();                     // 정보를 다시불러오고
     x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
@@ -241,9 +257,15 @@ function gameover(){
 }
 
 function draw() {//프레임 진행 함수
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
-    drawBall();
+
     stage1by1();
+    drawBall();
+    drawline01();
+    drawline02();
+    drawline03();
+
 
     x += dx;  //프레임당 진행 변수
     y += dy;    //프레임당 진행 변수
