@@ -17,191 +17,89 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var x = canvas.width/2;         //공의 x위치
-var y = canvas.height-700;      //공의 y위치
-var ballRadius = 20;            //공 둘레 함수
+var x = canvas.width/2;                     //공의 x위치
+var y = 0;                                  //공의 y위치
+var ballRadius = 20;                        //공 둘레 함수
 
-var dx = 0;                     //프레임마다 움직이는 x축 거리
-var dy = -4;                    //프레임마다 움직이는 y축 거리
+var dx = 0;                                 //프레임마다 움직이는 x축 거리
+var dy = 4;                                 //프레임마다 움직이는 y축 거리
 
-var block01Radius = 220;        // 첫번째 장애물 크기 
+var leftPressed = false;
+var rightPressed = false;
+
+//장애물 크기 설정
+var block01Radius = 220;                    // 첫번째 장애물 크기 
 var block01X = canvas.width-40;
 var block01Y = canvas.height-200;
 
-var block02Radius = 220;        // 두번째 장애물 크기
+var block02Radius = 220;                    // 두번째 장애물 크기
 var block02X = 40;
 var block02Y = 200;
 
-var block03Radius = 150;        // 두번째 장애물 크기
+var block03Radius = 150;                    // 세번째 장애물 크기
 var block03X = canvas.width;
 var block03Y = 0;
 
-var distance01X = Math.pow(block01X - x,2); //x.square
-var distance01Y = Math.pow(block01Y - y,2); //y.square
+// //장애물과 공의 거리설정을위한 계산
+// var distance01X = Math.pow(block01X - x,2); //x.square
+// var distance01Y = Math.pow(block01Y - y,2); //y.square
 
-var distance02X = Math.pow( Math.abs(block02X - x),2); //x2.square
-var distance02Y = Math.pow( Math.abs(block02Y - y),2); //y2.square
+// var distance02X = Math.pow( Math.abs(block02X - x),2); //x2.square
+// var distance02Y = Math.pow( Math.abs(block02Y - y),2); //y2.square
 
-var distance03X = Math.pow( Math.abs(block03X - x),2); //x2.square
-var distance03Y = Math.pow( Math.abs(block03Y - y),2); //y2.square
+// var distance03X = Math.pow( Math.abs(block03X - x),2); //x2.square
+// var distance03Y = Math.pow( Math.abs(block03Y - y),2); //y2.square
 
-var distance01 = Math.sqrt(distance01X + distance01Y); //볼과 장애물 1원과의 직선거리
-var distance02 = Math.sqrt(distance02X + distance02Y); //볼과 장애물 2원과의 직선거리
-var distance03 = Math.sqrt(distance03X + distance03Y); //볼과 장애물 3원과의 직선거리
-
-var brickWidth = 75;            //벽돌의 넓이
-var brickHeight = 20;           //벽돌 높이
-var brickPadding = 10;          //블록 패딩
-var brickOffsetTop = 30;        //블록 기본 높이시작 값
-var brickOffsetLeft = 30;       //블록 기본 왼쪽정렬값
-
-var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;     //벽돌의 X위치  다시
-var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;     //벽돌의 Y위치  다시
-
-var stageNumber = 5;      //스테이지 수
-var brickNumber = 5;  //블록 수 최대값
-
-var rightPressed = false;       //오른쪽 컨트롤 버튼 초기화
-var leftPressed = false;        //왼쪽 컨트롤 버튼 초기화
-var spacebarPressed = false;    //스페이스 바 버튼 초기화
+// var distance01 = Math.sqrt(distance01X + distance01Y); //볼과 장애물 1원과의 직선거리
+// var distance02 = Math.sqrt(distance02X + distance02Y); //볼과 장애물 2원과의 직선거리
+// var distance03 = Math.sqrt(distance03X + distance03Y); //볼과 장애물 3원과의 직선거리
+// // stage수에 따라서 x, y Width Height  =0 으로 만드는 함수 만들어야 함
 
 
-var bricks = [];        //벽돌 배열 생성 {스테이지 수 안에 벽돌번호씩 만들어져 있어야 한다.}
-for(var c=0; c<stageNumber; c++) {      //스테이지 수에 따라
-    bricks[c] = []; 
-    for(var r=0; r<brickNumber; r++) {    //벽돌 번호에 따라
-        bricks[c][r] = { x: 0, y: 0 };          //상빈아 여기서 일일이 번호에 X, Y 위치를 일일이 줄거야
-        bricks[0][0] = {x: , y :};
-        bricks[0][1] = {x: , y :};
-        bricks[0][2] = {x: , y :};
-        bricks[0][3] = {x: , y :};
-        bricks[0][4] = {x: , y :};
-        bricks[0][5] = {x: , y :};
-        bricks[1][0] = {x: , y :};
-        bricks[1][1] = {x: , y :};
-        bricks[1][2] = {x: , y :};
-        bricks[1][3] = {x: , y :};
-        bricks[1][4] = {x: , y :};
-        bricks[1][5] = {x: , y :};
-        bricks[2][0] = {x: , y :};
-        bricks[2][1] = {x: , y :};
-        bricks[2][2] = {x: , y :};
-        bricks[2][3] = {x: , y :};
-        bricks[2][4] = {x: , y :};
-        bricks[2][5] = {x: , y :};
-        bricks[3][0] = {x: , y :};
-        bricks[3][1] = {x: , y :};
-        bricks[3][2] = {x: , y :};
-        bricks[3][3] = {x: , y :};
-        bricks[3][4] = {x: , y :};
-        bricks[3][5] = {x: , y :};
-        bricks[4][0] = {x: , y :};
-        bricks[4][1] = {x: , y :};
-        bricks[4][2] = {x: , y :};
-        bricks[4][3] = {x: , y :};
-        bricks[4][4] = {x: , y :};
-        bricks[4][5] = {x: , y :};
-        bricks[5][0] = {x: , y :};
-        bricks[5][1] = {x: , y :};
-        bricks[5][2] = {x: , y :};
-        bricks[5][3] = {x: , y :};
-        bricks[5][4] = {x: , y :};
-        bricks[5][5] = {x: , y :};
-    }
-}       //스테이지 수와 벽돌 번호만큼 수만큼 반복되면서 새로운 벽돌
+document.addEventListener("keydown", keyDownHandler, false);            //키를 누르면 함수시작
+document.addEventListener("keyup", keyUpHandler, false);                //키를 때면 함수시작
 
-
-var WidthHeight = [];        //벽돌 배열 //넓이 높이
-for(var c=0; c<stageNumber; c++) {      //스테이지 수에 따라 넓이 높이 지정
-    bricks[c] = []; 
-    for(var r=0; r<brickNumber; r++) {  
-        WidthHeight[][] = {Width : 0 ,Height : 0 };
-        bricks[0][0] = {x: , y :};
-        bricks[0][1] = {x: , y :};
-        bricks[0][2] = {x: , y :};
-        bricks[0][3] = {x: , y :};
-        bricks[0][4] = {x: , y :};
-        bricks[0][5] = {x: , y :};
-        bricks[1][0] = {x: , y :};
-        bricks[1][1] = {x: , y :};
-        bricks[1][2] = {x: , y :};
-        bricks[1][3] = {x: , y :};
-        bricks[1][4] = {x: , y :};
-        bricks[1][5] = {x: , y :};
-        bricks[2][0] = {x: , y :};
-        bricks[2][1] = {x: , y :};
-        bricks[2][2] = {x: , y :};
-        bricks[2][3] = {x: , y :};
-        bricks[2][4] = {x: , y :};
-        bricks[2][5] = {x: , y :};
-        bricks[3][0] = {x: , y :};
-        bricks[3][1] = {x: , y :};
-        bricks[3][2] = {x: , y :};
-        bricks[3][3] = {x: , y :};
-        bricks[3][4] = {x: , y :};
-        bricks[3][5] = {x: , y :};
-        bricks[4][0] = {x: , y :};
-        bricks[4][1] = {x: , y :};
-        bricks[4][2] = {x: , y :};
-        bricks[4][3] = {x: , y :};
-        bricks[4][4] = {x: , y :};
-        bricks[4][5] = {x: , y :};
-        bricks[5][0] = {x: , y :};
-        bricks[5][1] = {x: , y :};
-        bricks[5][2] = {x: , y :};
-        bricks[5][3] = {x: , y :};
-        bricks[5][4] = {x: , y :};
-        bricks[5][5] = {x: , y :};
-    }
-}
-
-// stage수에 따라서 x, y Width Height  =0 으로 만드는 함수 만들어야 함
-
-
-document.addEventListener("keydown", keyDownHandler, false);//키를 누르면 함수시작
-document.addEventListener("keyup", keyUpHandler, false);//키를 때면 함수시작
-
-function keyDownHandler(e) { //키를 누르면 e변수에 저장
-    if(e.keyCode == 39) {//오른쪽 방향키
+function keyDownHandler(e) {                                            //키를 누르면 e변수에 저장
+    if(e.keyCode == 39) {                                               //오른쪽 방향키
         rightPressed = true;
     }
-    else if(e.keyCode == 37) {//왼쪽 방향키
+    else if(e.keyCode == 37) {                                          //왼쪽 방향키
         leftPressed = true;
     }
-    if(e.keyCode ==32) {// space bar
-        spacebarPressed = true;
-    }
+    // if(e.keyCode ==32) {                                                // space bar
+    //     spacebarPressed = true;
+    // }
 }
 
-function keyUpHandler(e) { //키를 때면 e변수에 저장
-    if(e.keyCode == 39) {//오른쪽 방향키
+function keyUpHandler(e) {                                              //키를 때면 e변수에 저장
+    if(e.keyCode == 39) {                                               //오른쪽 방향키
         rightPressed = false;
     }
-    else if(e.keyCode == 37) {//왼쪽 방향키
+    else if(e.keyCode == 37) {                                          //왼쪽 방향키
         leftPressed = false;
     }
-    if(e.keyCode ==32) {// space bar
-        spacebarPressed = false;
-    }
+    // if(e.keyCode ==32) {                                                // space bar
+    //     spacebarPressed = false;
+    // }
 }
 
 //initialize 함수를 만들어서 현재 stage와 배열의 첫번째[]의 숫자가 다르면 모든 설정을 0ㅇ으로 만드는 함수만들
 //stage가 끝나면 stage+1을 하자
 
-
-function drawBricks() {                             //벽돌의 크기를 지정해서 실제로 만드는 함수
-    for(var c=0; c<stageNumber; c++) {
-        for(var r=0; r<brickNumber; r++) {
-            bricks[c][r].x = 0;     //x축 위치
-            bricks[c][r].y = 0;     //y축 위치
-            ctx.beginPath();
-            ctx.rect(bricks[c][r].x,bricks[c][r].y,WidthHeight[c][r] ,WidthHeight[c][r]);     //  x,y위치   넓이 높이 배열 다 찍어서 표현
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
-            ctx.closePath();
-        }
-    }
-}
+// //벽돌의 크기를 지정해서 실제로 만드는 함수
+// function drawBricks() {                             
+//     for(var c=0; c<stageNumber; c++) {
+//         for(var r=0; r<brickNumber; r++) {
+//             bricks[c][r].x = 0;     //x축 위치
+//             bricks[c][r].y = 0;     //y축 위치
+//             ctx.beginPath();
+//             ctx.rect(bricks[c][r].x,bricks[c][r].y,WidthHeight[c][r] ,WidthHeight[c][r]);     //  x,y위치   넓이 높이 배열 다 찍어서 표현
+//             ctx.fillStyle = "#0095DD";
+//             ctx.fill();
+//             ctx.closePath();
+//         }
+//     }
+// }
 
 function drawBall() { // 프레임마다 변수 갱신 함수
     ctx.beginPath();
@@ -220,12 +118,12 @@ function drawBall() { // 프레임마다 변수 갱신 함수
 function stage1by1(){                           // 스테이지 1-1
     ctx.arc(block01X, block01Y, block01Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
-    //ctx.fill();
+    ctx.fill();
     ctx.closePath();
 
     ctx.arc(block02X, block02Y, block02Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
-    //ctx.fill();
+    ctx.fill();
     ctx.closePath();
 
     ctx.arc(block03X, block03Y, block03Radius, 0, Math.PI*2);    //
@@ -234,64 +132,31 @@ function stage1by1(){                           // 스테이지 1-1
     ctx.closePath();
 }
 
-function drawline01(){
-    ctx.moveTo(block01X,block01Y);
-    ctx.lineTo(x,y);
-}
-
-function drawline02(){
-    ctx.moveTo(block02X,block02Y);
-    ctx.lineTo(x,y);
-}
-
-function drawline03(){
-    ctx.moveTo(block03X,block03Y);
-    ctx.lineTo(x,y);
-}
-
-
 function gameover(){
     document.location.reload();                     // 정보를 다시불러오고
     x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
     alert("GAME OVER");                             // 게임오버 메세지 띄움
 }
 
-function draw() {//프레임 진행 함수
+//프레임 진행 함수
+function draw() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
 
     stage1by1();
     drawBall();
-    drawline01();
-    drawline02();
-    drawline03();
-
 
     x += dx;  //프레임당 진행 변수
     y += dy;    //프레임당 진행 변수
 
-    if(y + dy > canvas.height-ballRadius ||/*하단 모서리*/ y + dy/*상단 모서리*/ < ballRadius) {
-    dy = -dy;       //프레임당 진행 바꿈
+    if(y + dy > canvas.height+ballRadius) {                          //공이 바닥에 닿았을때
+    y = 0;                                                           //공위치를 다시 위로 설정
     }
 
-    if(x+ballRadius >canvas.width || x-ballRadius < 0 ||distance01 <= ballRadius + block01Radius||distance02 <= ballRadius + block02Radius||distance03 <= ballRadius + block03Radius){ // 양쪽 벽에닿으면
+// 
+    if(x+ballRadius >canvas.width||x-ballRadius < 0 ){ // 양쪽 벽에닿으면
         gameover();
     }
-    // if(distanc01 <= ballRadius + block01Radius) {       // 현재 원의 위치부터 장애물1의 위치까지의 거리가 공의 반지름과 장애물1의 반지름을 더한거보다 작으면
-    //     document.location.reload();                     // 정보를 다시불러오고
-    //     x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
-    //     alert("GAME OVER"); 
-    // }
-    // else if(distanc02 <= ballRadius + block02Radius) {
-    //     document.location.reload();                     // 정보를 다시불러오고
-    //     x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
-    //     alert("GAME OVER");
-    //     }
-    // else if(distanc03 <= ballRadius + block03Radius) {
-    //     document.location.reload();                     // 정보를 다시불러오고
-    //     x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
-    //     alert("GAME OVER");
-    //     }
 
 }
 setInterval(draw, 10);
