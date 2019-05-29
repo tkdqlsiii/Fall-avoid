@@ -29,66 +29,236 @@ var x = canvas.width/2;                     //공의 위치
 var y = 0;                                  //공의 위치
 
 //장애물 크기 설정
-var block01Radius = 150;                    // 첫번째 장애물 크기 
-var block01X = canvas.width-40;
-var block01Y = canvas.height-200;
+var block01Radius = 125;                    // 첫번째 장애물 크기 
+var block01X = canvas.width-400;
+var block01Y = 60;
 
-var block02Radius = 150;                    // 두번째 장애물 크기
-var block02X = 40;
-var block02Y = 400;
+var block02Radius = 125;                    // 두번째 장애물 크기
+var block02X = 400;
+var block02Y = 60;
 
-var block03Radius = 150;                    // 세번째 장애물 크기
-var block03X = canvas.width;
-var block03Y = 0;
+var block03Radius = 120;                    // 세번째 장애물 크기
+var block03X = canvas.width-240;
+var block03Y = 375;
 
-var block04Radius = 150;                    // 세번째 장애물 크기
-var block04X = canvas.width-40;
-var block04Y = canvas.height-200;
+var block04Radius = 180;                    // 4번째 장애물 크기 
+var block04X = 1;
+var block04Y = 720;
 
-var block05Radius = 150;                    // 세번째 장애물 크기
-var block05X = 40;
-var block05Y = 400;
+var block05Radius = 180;                    // 5번째 장애물 크기
+var block05X = 480;
+var block05Y = 720;
 
-var rectangleXlengh = canvas.width;
-var ractangleYlengh = 0;
+var block06Radius = 180;                    // 6번째 장애물 크기
+var block06X = 1;
+var block06Y = 0;
+
+var block07Radius = 220;                    // 7번째 장애물 크기 
+var block07X = canvas.width-130;
+var block07Y = 360;
+
+var block08Radius = 130;                    // 8번째 장애물 크기
+var block08X = 30;
+var block08Y = canvas.height-20;
+
+var block09Radius = 140;                    // 9번째 장애물 크기
+var block09X = 40;
+var block09Y = 20;
+
+var block10Radius = 200;                    // 10번째 장애물 크기 
+var block10X = 200;
+var block10Y = 300;
+
+var block11Radius = 100;                    // 11번째 장애물 크기
+var block11X = canvas.width-30;
+var block11Y = canvas.height-150;
+
+var block12Radius = 200;
+var block12X = 100;
+var block12Y = 500;
+
+var block13Radius = 60;
+var block13X = 335;
+var block13Y = 400;
+
+var block14Radius = 90;
+var block14X = canvas.width-25;
+var block14Y = canvas.height-10;
+
+var block15Radius = 200;
+var block15X = 0;
+var block15Y = 0;
+
+var block16Radius = 90;
+var block16X = canvas.width;
+var block16Y = -10;
+
+var block17Radius = 130;
+var block17X = canvas.width-15;
+var block17Y = 185;
+
+var block18Radius = 130;
+var block18X = 120;
+var block18Y = 290;
+
+var block19Radius = 150;
+var block19X = canvas.width-40;
+var block19Y = canvas.height-230;
+
+var block20Radius = 100;
+var block20X = 100;
+var block20Y = canvas.height-30;
+
+var block21Radius = 100;
+var block21X = 50;
+var block21Y = 100;
+
+var block22Radius = 130;
+var block22X = canvas.width-60;
+var block22Y = 60;
+
+var block23Radius = 300;
+var block23X = canvas.width-60;
+var block23Y = 450;
+
+var block24Radius = 150;
+var block24X = canvas.width-40;
+var block24Y = canvas.height-200; 
+
+var rectangleX = 0;
+var rectangleY = canvas.height;
+var rectangleWidth = 480;
+var rectangleHeight = 1;
 
 //장애물과 공의 거리설정을위한 계산
 var distance01X;          //x.square
-var distance01Y;         //y.square
+var distance01Y;          //y.square
 
-var distance02X;          //x2.square
-var distance02Y;          //y2.square
+var distance02X;       
+var distance02Y;         
 
-var distance03X;          //x2.square
-var distance03Y;          //y2.square
+var distance03X;        
+var distance03Y;         
 
-var distance04X;          //x2.square
-var distance04Y;          //y2.square
+var distance04X;        
+var distance04Y;         
 
-var distance05X;          //x2.square
-var distance05Y;          //y2.square
+var distance05X;        
+var distance05Y;        
+
+var distance06X;         
+var distance06Y;      
+
+var distance07X;         
+var distance07Y;      
+
+var distance08X;        
+var distance08Y;          
+
+var distance09X;         
+var distance09Y;          
+
+var distance10X;          
+var distance10Y;          
+
+var distance11X;        
+var distance11Y;         
+
+var distance12X;        
+var distance12Y;         
+
+var distance13X;       
+var distance13Y;       
+
+var distance14X;        
+var distance14Y;          
+
+var distance15X;          
+var distance15Y;        
+
+var distance16X;    
+var distance16Y;       
+
+var distance17X;        
+var distance17Y;     
+
+var distance18X;        
+var distance18Y;    
+
+var distance19X;       
+var distance19Y;    
+
+var distance20X;         
+var distance20Y;          
+
+var distance21X;          
+var distance21Y;          
+
+var distance22X;          
+var distance22Y;       
+
+var distance23X;          
+var distance23Y;          
+
+var distance24X;         
+var distance24Y;         
+
+var distance25X;         
+var distance25Y;         
 
 var distance01;          //볼과 장애물 1원과의 직선거리
-var distance02;         //볼과 장애물 2원과의 직선거리
-var distance03;         //볼과 장애물 3원과의 직선거리
+var distance02;        
+var distance03;        
 var distance04;
 var distance05;
+var distance06;
+var distance07;
+var distance08;
+var distance09;
+var distance10;
+var distance11;
+var distance12;
+var distance13;
+var distance14;
+var distance15;
+var distance16;
+var distance17;
+var distance18;
+var distance19;
+var distance20;
+var distance21;
+var distance22;
+var distance23;
+var distance24;
+
 
 //캐릭터원과 장애물원의 반지름의 합
 var sumradius01;                   //01번 장애물과 캐릭터원의 반지름의 합
-var sumradius02;                   //02번 장애물과 캐릭터원의 반지름의 합
-var sumradius03;                   //03번 장애물과 캐릭터원의 반지름의 합
+var sumradius02;                   
+var sumradius03;                   
 var sumradius04;
 var sumradius05;
-
-
+var sumradius06;                   
+var sumradius07;                   
+var sumradius08;
+var sumradius09;
+var sumradius10;                   
+var sumradius11;                   
+var sumradius12;
+var sumradius13;
+var sumradius14;                   
+var sumradius15;                   
+var sumradius16;
+var sumradius17;
+var sumradius18;                   
+var sumradius19;                   
+var sumradius20;
+var sumradius21;
+var sumradius22;                   
+var sumradius23;                   
+var sumradius24;
 
 var count = 0;
-
-
-// var blockRadius = [150,200,150];
-// var blockX = [canvas.width-40,40,canvas.width];
-// var blockY = [canvas.height-200,400,0];
 
 document.addEventListener("keydown", keyDownHandler, false);            //키를 누르면 함수시작
 document.addEventListener("keyup", keyUpHandler, false);                //키를 때면 함수시작
@@ -142,8 +312,7 @@ function stage1by1(){
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
-}
-function stage1by2(){                           
+
     ctx.arc(block04X, block04Y, block04Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
     ctx.fill();
@@ -153,15 +322,175 @@ function stage1by2(){
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+}
 
-    ctx.rect(0,canvas.height-1,rectangleXlengh,ractangleYlengh);
+function stage1by2(){              
+    block01Radius =0;
+    block02Radius =0;
+    block03Radius =0;
+    block04Radius =0;
+    block05Radius =0;
+    block01X = 500; 
+    block02X = 500;
+    block03X = 500;
+    block04X = 500;
+    block05X = 500;
+
+    ctx.arc(block06X, block06Y, block06Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block07X, block07Y, block07Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block08X, block08Y, block08Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function stage1by3(){       
+    block06Radius =0;
+    block07Radius =0;
+    block08Radius =0;
+    block06X = 500; 
+    block07X = 500; 
+    block08X = 500; 
+    
+    ctx.arc(block09X, block09Y, block09Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block10X, block10Y, block10Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block11X, block11Y, block11Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.rect(rectangleX,rectangleY,rectangleWidth,rectangleHeight);
     ctx.fillstyle = "black";
     ctx.fill();
     ctx.closePath();
 }
 
-var rectangleXlengh = 480;
-var ractangleYlengh = 1;
+function stage2by1(){       
+    block09Radius =0;
+    block10Radius =0;
+    block11Radius =0;
+    block09X = 500;
+    block10X = 500;
+    block11X = 500;
+    rectangleWidth = 0;
+    
+    ctx.arc(block12X, block12Y, block12Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block13X, block13Y, block13Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block14X, block14Y, block14Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+}
+
+function stage2by2(){       
+    block12Radius =0;
+    block12Radius =0;
+    block13Radius =0;
+    block13X = 500;
+    block14X = 500;
+    block14X = 500; 
+    
+    ctx.arc(block15X, block15Y, block15Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block16X, block16Y, block16Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block17X, block17Y, block17Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block18X, block18Y, block18Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block19X, block19Y, block19Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block20X, block20Y, block20Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+function stage2by3(){       
+    block15Radius =0;
+    block16Radius =0;
+    block17Radius =0;
+    block18Radius =0;
+    block19Radius =0;
+    block20Radius =0;
+    block15X = 500;
+    block16X = 500;
+    block17X = 500;
+    block18X = 500;
+    block19X = 500;
+    block20X = 500; 
+    rectangleWidth = 480;
+    
+    ctx.arc(block21X, block21Y, block21Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block22X, block22Y, block22Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block23X, block23Y, block23Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.arc(block24X, block24Y, block24Radius, 0, Math.PI*2);    //
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.rect(rectangleX,rectangleY,rectangleWidth,rectangleHeight);
+    ctx.fillstyle = "black";
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+
+
 
 //프레임 진행 함수
 function draw() {
@@ -175,72 +504,221 @@ function draw() {
     distance01X = Math.pow(block01X - x,2);                     //x.square
     distance01Y = Math.pow(block01Y - y,2);                     //y.square
 
-    distance02X = Math.pow( Math.abs(block02X - x),2);          //x2.square
-    distance02Y = Math.pow( Math.abs(block02Y - y),2);          //y2.square
+    distance02X = Math.pow(block02X - x,2);        
+    distance02Y = Math.pow(block02Y - y,2);          
 
-    distance03X = Math.pow( Math.abs(block03X - x),2);          //x2.square
-    distance03Y = Math.pow( Math.abs(block03Y - y),2);          //y2.square
+    distance03X = Math.pow(block03X - x,2); 
+    distance03Y = Math.pow(block03Y - y,2); 
 
-    distance04X = Math.pow( Math.abs(block04X - x),2);          //x2.square
-    distance04Y = Math.pow( Math.abs(block04Y - y),2);          //y2.square
+    distance04X = Math.pow(block04X - x,2);     
+    distance04Y = Math.pow(block04Y - y,2);         
 
-    distance05X = Math.pow( Math.abs(block05X - x),2);          //x2.square
-    distance05Y = Math.pow( Math.abs(block05Y - y),2);          //y2.square
+    distance05X = Math.pow(block05X - x,2);         
+    distance05Y = Math.pow(block05Y - y,2);   
     
+    distance06X = Math.pow(block06X - x,2);        
+    distance06Y = Math.pow(block06Y - y,2);          
+
+    distance07X = Math.pow(block07X - x,2); 
+    distance07Y = Math.pow(block07Y - y,2); 
+
+    distance08X = Math.pow(block08X - x,2);     
+    distance08Y = Math.pow(block08Y - y,2);         
+
+    distance09X = Math.pow(block09X - x,2);         
+    distance09Y = Math.pow(block09Y - y,2);   
+
+    distance10X = Math.pow(block10X - x,2);        
+    distance10Y = Math.pow(block10Y - y,2);          
+
+    distance11X = Math.pow(block11X - x,2); 
+    distance11Y = Math.pow(block11Y - y,2); 
+
+    distance12X = Math.pow(block12X - x,2);     
+    distance12Y = Math.pow(block12Y - y,2);         
+
+    distance13X = Math.pow(block13X - x,2);         
+    distance13Y = Math.pow(block13Y - y,2);   
+
+    distance14X = Math.pow(block14X - x,2);        
+    distance14Y = Math.pow(block14Y - y,2);          
+
+    distance15X = Math.pow(block15X - x,2); 
+    distance15Y = Math.pow(block15Y - y,2); 
+
+    distance16X = Math.pow(block16X - x,2);     
+    distance16Y = Math.pow(block16Y - y,2);         
+
+    distance17X = Math.pow(block17X - x,2);         
+    distance17Y = Math.pow(block17Y - y,2);   
+
+    distance18X = Math.pow(block18X - x,2);        
+    distance18Y = Math.pow(block18Y - y,2);          
+
+    distance19X = Math.pow(block19X - x,2); 
+    distance19Y = Math.pow(block19Y - y,2); 
+
+    distance20X = Math.pow(block20X - x,2);     
+    distance20Y = Math.pow(block20Y - y,2);         
+
+    distance21X = Math.pow(block21X - x,2);         
+    distance21Y = Math.pow(block21Y - y,2);   
+
+    distance22X = Math.pow(block22X - x,2);        
+    distance22Y = Math.pow(block22Y - y,2);          
+
+    distance23X = Math.pow(block23X - x,2); 
+    distance23Y = Math.pow(block23Y - y,2); 
+
+    distance24X = Math.pow(block24X - x,2);     
+    distance24Y = Math.pow(block24Y - y,2);         
+
     distance01 = Math.sqrt(distance01X + distance01Y);          //볼과 장애물 1원과의 직선거리
-    distance02 = Math.sqrt(distance02X + distance02Y);          //볼과 장애물 2원과의 직선거리
-    distance03 = Math.sqrt(distance03X + distance03Y);          //볼과 장애물 3원과의 직선거리
+    distance02 = Math.sqrt(distance02X + distance02Y);         
+    distance03 = Math.sqrt(distance03X + distance03Y);        
     distance04 = Math.sqrt(distance04X + distance04Y);
     distance05 = Math.sqrt(distance05X + distance05Y);
-
+    distance06 = Math.sqrt(distance06X + distance06Y);         
+    distance07 = Math.sqrt(distance07X + distance07Y);        
+    distance08 = Math.sqrt(distance08X + distance08Y);
+    distance09 = Math.sqrt(distance09X + distance09Y);
+    distance10 = Math.sqrt(distance10X + distance10Y);         
+    distance11 = Math.sqrt(distance11X + distance11Y);        
+    distance12 = Math.sqrt(distance12X + distance12Y);
+    distance13 = Math.sqrt(distance13X + distance13Y);
+    distance14 = Math.sqrt(distance14X + distance14Y);         
+    distance15 = Math.sqrt(distance15X + distance15Y);        
+    distance16 = Math.sqrt(distance16X + distance16Y);
+    distance17 = Math.sqrt(distance17X + distance17Y);
+    distance18 = Math.sqrt(distance18X + distance18Y);         
+    distance19 = Math.sqrt(distance19X + distance19Y);        
+    distance20 = Math.sqrt(distance20X + distance20Y);
+    distance21 = Math.sqrt(distance21X + distance21Y);
+    distance22 = Math.sqrt(distance22X + distance22Y);         
+    distance23 = Math.sqrt(distance23X + distance23Y);        
+    distance24 = Math.sqrt(distance24X + distance24Y);
+   
 //캐릭터원과 장애물원의 반지름의 합
     sumradius01 = ballRadius + block01Radius;                   //01번 장애물과 캐릭터원의 반지름의 합
-    sumradius02 = ballRadius + block02Radius;                   //02번 장애물과 캐릭터원의 반지름의 합
-    sumradius03 = ballRadius + block03Radius;                   //03번 장애물과 캐릭터원의 반지름의 합
+    sumradius02 = ballRadius + block02Radius;                
+    sumradius03 = ballRadius + block03Radius;           
     sumradius04 = ballRadius + block04Radius;    
-    sumradius05 = ballRadius + block05Radius;    
-
+    sumradius05 = ballRadius + block05Radius;
+    sumradius06 = ballRadius + block06Radius;
+    sumradius07 = ballRadius + block07Radius;
+    sumradius08 = ballRadius + block08Radius;    
+    sumradius09 = ballRadius + block09Radius;
+    sumradius10 = ballRadius + block10Radius;
+    sumradius11 = ballRadius + block11Radius;
+    sumradius12 = ballRadius + block12Radius;
+    sumradius13 = ballRadius + block13Radius;
+    sumradius14 = ballRadius + block14Radius;
+    sumradius15 = ballRadius + block15Radius;
+    sumradius16 = ballRadius + block16Radius;
+    sumradius17 = ballRadius + block17Radius;
+    sumradius18 = ballRadius + block18Radius;
+    sumradius19 = ballRadius + block19Radius;
+    sumradius20 = ballRadius + block20Radius;
+    sumradius21 = ballRadius + block21Radius;
+    sumradius22 = ballRadius + block22Radius;
+    sumradius23 = ballRadius + block23Radius;
+    sumradius24 = ballRadius + block24Radius;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);//이전 프레임의 공 지우는 함수
 
-    stage1by1();
     drawBall();
-    if(y + dy > canvas.height+ballRadius) {                           //공이 바닥에 닿았을때
-    y = 0;                                                            //공위치를 다시 위로 설정해서 다시 내려오게 만듦   
-    count++;                                                          //count 1증가
+
+    if((x+ballRadius > canvas.width)|| (x-ballRadius < 0)) { // 양쪽 벽에 닿을때
+        document.location.reload();                     // 정보를 다시불러오고
+        x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+        y=0;
+        alert(count);                             // 게임오버 메세지 띄움
+    }
+    
+    if(y> canvas.height+ballRadius) {                           //공이 바닥에 닿았을때
+        y = 0;                                                            //공위치를 다시 위로 설정해서 다시 내려오게 만듦   
+        count++;                                                          //count 1증가
     }
 
-    if(count ==1){
-        block01Radius =0;block02Radius =0;block03Radius =0;block01X = 500; block02X = 500; block03X = 500; 
-        stage1by2();
-        if((sumradius04 > distance04) || (sumradius05 > distance05))
+    if(count == 0 ){
+        stage1by1();
+        if((sumradius01 > distance01) || (sumradius02 > distance02) || (sumradius03 > distance03) || (sumradius04 > distance04) || (sumradius05 > distance05))
         {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("count : "+count);                         // 게임오버 메세지 띄움
+            alert("12345");                         // 게임오버 메세지 띄움
+        }
+    }
+    if(count == 1 ){
+        stage1by2();
+        if((sumradius06 > distance06) || (sumradius07 > distance07) || (sumradius08 > distance08))
+        {
+            document.location.reload();                     // 정보를 다시불러오고
+            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+            y=0;
+            alert("678");                         // 게임오버 메세지 띄움
         }
     }
 
     if(count == 2){
-        if(y + dy > canvas.height-ractangleYlengh){                  // 정보를 다시불러오고
+        stage1by3();
+        if((sumradius09 > distance09) || (sumradius10 > distance10) || (sumradius11 > distance11)){
+            document.location.reload();                     // 정보를 다시불러오고
+            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+            y=0;
+            alert("91011");
+        }
+        if(x >rectangleX  && x < rectangleX+rectangleWidth && y > rectangleY){                  // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
             alert("STAGE 1 CLEAR");
+            leftPressed = false;
+            rightPressed = false;
+            count++;
+
+        }
+    }
+    
+    if(count == 3){
+        stage2by1();
+        if((sumradius12 > distance12) || (sumradius13 > distance13) || (sumradius14 > distance14)){
+            document.location.reload();                     // 정보를 다시불러오고
+            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+            y=0;
+            alert(count);
         }
     }
 
-    if((x+ballRadius > canvas.width)|| (x-ballRadius < 0) ||(sumradius01 > distance01) || (sumradius02 > distance02) || (sumradius03 > distance03)) { // 양쪽 벽에 닿을때, 장애물에 닿았을 때
-        document.location.reload();                     // 정보를 다시불러오고
-        x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
-        y=0;
-        alert("count : "+count);                             // 게임오버 메세지 띄움
+    if(count == 4){
+        stage2by2();
+        if((sumradius15 > distance15) || (sumradius16 > distance16) || (sumradius17 > distance17)|| (sumradius18 > distance18) || (sumradius19 > distance19)|| (sumradius20 > distance20)){
+            document.location.reload();                     // 정보를 다시불러오고
+            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+            y=0;
+            leftPressed = false;
+            rightPressed = false;
+            alert(count);
+        }
     }
-    
 
-    
+    if(count == 5){
+        stage2by3();
+        if((sumradius21 > distance21) || (sumradius22 > distance22) || (sumradius23 > distance23) || (sumradius24 > distance24)){
+            document.location.reload();                     // 정보를 다시불러오고
+            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+            y=0;
+            alert("GAME OVER");
+        }
+        else if(x >rectangleX  && x < rectangleX+rectangleWidth && y > rectangleY){                  // 정보를 다시불러오고
+            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
+            y=0;
+            alert("STAGE 2 CLEAR");
+        }
+    }
 }
 setInterval(draw, 10);
+
 </script>
 
 </body>
