@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Gamedev Canvas Workshop</title>
+    <title>I Wanna Be The Blue</title>
     <style>
-    	* { padding: 0; margin: 0; background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);}          
+    	* { padding: 0; margin: 0; background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);}         
     	canvas { background: #eee; display: block; margin: 0 auto; }
         
     </style>
@@ -27,6 +27,8 @@ var rightPressed = false;                   //왼쪽 누름인식 false 초기�
 
 var x = canvas.width/2;                     //공의 위치
 var y = 0;                                  //공의 위치
+
+var score = 0;
 
 //장애물 크기 설정
 var block01Radius = 125;                    // 01번째 장애물 크기 
@@ -432,9 +434,9 @@ function drawBall() {
     else if(leftPressed) {                      // 왼쪽키가 true(누른상태)이면
     x -= 3;                                     // x값을 3감소
     }
-
+    score++;
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);    // x , y, 지름등 값을 참조하여 원을 그린다.
-    ctx.fillStyle = "#0095DD";                  // 색을 "#0095DD"로 채움
+    ctx.fillStyle = "#8000FF";                  // 색을 "#8000FF"로 채움
     ctx.fill();                                 // 채움
     ctx.closePath();                            // 공그리는 path는 여기까지
 }
@@ -442,7 +444,7 @@ function drawBall() {
 //스테이지1의 장애물표시 함수
 function stage1by1(){                           
     ctx.arc(block01X, block01Y, block01Radius, 0, Math.PI*2);    //01번째 장애물 그림
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#8000FF";
     ctx.fill();
     ctx.closePath();
 
@@ -752,9 +754,9 @@ function stage3by3(){
     ctx.closePath();
 }
 
+
 //프레임 진행 함수
 function draw() {
-
     x += dx;                                                        //프레임당 진행 변수
     y += dy;  
 
@@ -965,12 +967,15 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);           //이전 프레임의 공 지우는 함수
 
     drawBall();
+    
+    
+    
 
     if((x+ballRadius > canvas.width)|| (x-ballRadius < 0)) {    // 양쪽 벽에 닿을때
         document.location.reload();                             // 정보를 다시불러오고
         x=canvas.width/2;                                       // 불러와도 다시시작 안되서 처음위치 다시 정의함
         y=0;
-        alert(count);                                           // 게임오버 메세지 띄움
+        alert("GAME OVER\n"+"Score : "+score);                                           // 게임오버 메세지 띄움
     }
     
     if(y> canvas.height+ballRadius) {                           //공이 바닥에 닿았을때
@@ -985,7 +990,7 @@ function draw() {
             document.location.reload();                         // 정보를 다시불러오고
             x=canvas.width/2;                                   // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");                                 // 게임오버 메세지 띄움
+            alert("GAME OVER\n"+"Score : "+score);                                 // 게임오버 메세지 띄움
         }
     }
     if(count == 1 ){
@@ -995,7 +1000,7 @@ function draw() {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");                         // 게임오버 메세지 띄움
+            alert("GAME OVER\n"+"Score : "+score);                         // 게임오버 메세지 띄움
         }
     }
 
@@ -1005,7 +1010,7 @@ function draw() {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");
+            alert("GAME OVER\n"+"Score : "+score);
         }
         if(x >rectangleX  && x < rectangleX+rectangleWidth && y > rectangleY){                  // 정보를 다시불러오고
             alert("STAGE 1 CLEAR");
@@ -1025,7 +1030,7 @@ function draw() {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");
+            alert("GAME OVER\n"+"Score : "+score);
         }
     }
 
@@ -1037,7 +1042,7 @@ function draw() {
             y=0;
             leftPressed = false;
             rightPressed = false;
-            alert("GAME OVER");
+            alert("GAME OVER\n"+"Score : "+score);
         }
     }
 
@@ -1047,7 +1052,7 @@ function draw() {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");
+            alert("GAME OVER\n"+"Score : "+score);
         }
         if(x >rectangleX  && x < rectangleX+rectangleWidth && y > rectangleY){                  // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
@@ -1067,18 +1072,14 @@ function draw() {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");
+            alert("GAME OVER\n"+"Score : "+score);
         }
     }
 
     if(count == 7){
         stage3by2();
-        if((sumradius29 > distance29) || (sumradius30 > distance30)|| (sumradius31 > distance31)||(sumradius32 > distance32)){
-            document.location.reload();                     // 정보를 다시불러오고
-            x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
-            y=0;
-            alert("GAME OVER");
-        }
+        
+        
     }
 
     if(count == 8){
@@ -1087,17 +1088,18 @@ function draw() {
             document.location.reload();                     // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER");
+            alert("GAME OVER\n"+"Score : "+score);
         }
         else if(x >rectangleX  && x < rectangleX+rectangleWidth && y > rectangleY){                  // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("STAGE 3 CLEAR");
+            alert("STAGE 3 CLEAR\n"+"Score : "+score);
         }
     }
 
 
 }
+alert("GAME START");
 setInterval(draw, 10);
 
 </script>
