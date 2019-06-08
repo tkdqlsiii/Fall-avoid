@@ -572,6 +572,7 @@ function stage3by1(){
     block22X = 500;
     block23X = 500;
     block24X = 500;
+    rectangleWidth = 0;
     
     ctx.arc(block25X, block25Y, block25Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
@@ -651,6 +652,7 @@ function stage3by3(){
     block31X = 500;
     block32X = 500;
     block41X = 500;
+    rectangleWidth = 480;
     
     ctx.arc(block33X, block33Y, block33Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
@@ -689,6 +691,11 @@ function stage3by3(){
 
     ctx.arc(block40X, block40Y, block40Radius, 0, Math.PI*2);    //
     ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.rect(rectangleX,rectangleY,rectangleWidth,rectangleHeight);
+    ctx.fillstyle = "black";
     ctx.fill();
     ctx.closePath();
 
@@ -924,7 +931,7 @@ function draw() {
         document.location.reload();                     // 정보를 다시불러오고
         x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
         y=0;
-        alert("GAME OVER");                             // 게임오버 메세지 띄움
+        alert("GAME OVER\n"+"Score : "+score);                             // 게임오버 메세지 띄움
     }
     
     if(y > canvas.height+ballRadius) {                           //공이 바닥에 닿았을때
@@ -1045,7 +1052,7 @@ function draw() {
         if(x >rectangleX  && x < rectangleX+rectangleWidth && y > rectangleY){                  // 정보를 다시불러오고
             x=canvas.width/2;                               // 불러와도 다시시작 안되서 처음위치 다시 정의함
             y=0;
-            alert("GAME OVER\n"+"Score : "+score);
+            alert("CONGRATULATIONS!\n ALL STAGE CLEAR!\n"+"Score : "+score);
         }
     }
 }
